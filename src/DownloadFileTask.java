@@ -1,20 +1,21 @@
 public class DownloadFileTask implements Runnable{
     DownloadStatus status;
-    public DownloadFileTask() {
-        this.status=new DownloadStatus();
+    public DownloadFileTask(DownloadStatus status) {
+        this.status=status;
 
     }
 
     @Override
     public void run() {
         System.out.println("downloading file"+Thread.currentThread().getName());
-        for(int i=0;i<10_000;i++)
+        for(int i=0;i<1000000;i++)
         {
             if(Thread.currentThread().isInterrupted()) break;
             status.incrementByte();
         }
+        status.done();
         System.out.println("download complete"+Thread.currentThread().getName());
-        System.out.println(status.getTotalBytes());
+
     }
 
     public DownloadStatus getStatus() {
