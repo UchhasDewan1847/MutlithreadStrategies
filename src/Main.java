@@ -10,6 +10,13 @@ public class Main {
         var thread1= new Thread(new DownloadFileTask(downloadStatus));
         var thread2= new Thread(()->{
             while (!downloadStatus.isDone()){
+                synchronized (downloadStatus){
+                    try {
+                        downloadStatus.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
             System.out.println(downloadStatus.getTotalBytes());
         });
