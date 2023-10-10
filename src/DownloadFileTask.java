@@ -1,7 +1,7 @@
 public class DownloadFileTask implements Runnable{
     DownloadStatus status;
-    public DownloadFileTask() {
-        this.status=new DownloadStatus();
+    public DownloadFileTask(DownloadStatus status) {
+        this.status=status;
 
     }
 
@@ -14,7 +14,6 @@ public class DownloadFileTask implements Runnable{
             status.incrementByte();
         }
         System.out.println("download complete"+Thread.currentThread().getName());
-        System.out.println(status.getTotalBytes());
     }
 
     public DownloadStatus getStatus() {
